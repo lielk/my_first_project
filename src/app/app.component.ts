@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { time } from 'console'
 import jsonData from './people.json'
 import { map, Observable, pipe, timer } from 'rxjs'
-// import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler'
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler'
 
 let Data = jsonData
 
