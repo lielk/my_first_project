@@ -8,14 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
 import {MatIconModule} from '@angular/material/icon';
 import { AnimateComponent } from './animate.component';
-
+import { HttpClientModule } from '@angular/common/http';
 // import { BackgroundimageComponent } from './backgroundimage/backgroundimage.component';   
 
 import {
 	IgxButtonModule,
 	IgxIconModule,
 	IgxCardModule,
-	IgxRippleModule
+	IgxRippleModule,
  } from "igniteui-angular";
 
 @NgModule({
@@ -24,6 +24,7 @@ import {
     AnimateComponent
   ],
   imports: [
+    HttpClientModule,
     MatIconModule,  
     MatCardModule,
     BrowserModule,

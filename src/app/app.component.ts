@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { time } from 'console'
-import jsonData from './people.json'
 import { map, Observable, pipe, timer } from 'rxjs'
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler'
+import { HttpClient } from '@angular/common/http'
 
-let Data = jsonData
+
 
 interface people {
   id: Number
@@ -14,6 +12,7 @@ interface people {
   gender: String
   avatar: String
 }
+//  let Data=[{"id":1,"first_name":"Giorgio","last_name":"Eastbrook","email":"geastbrook0@printfriendly.com","gender":"Male","avatar":"https://robohash.org/adipiscietest.png?size=50x50\u0026set=set1"}]
 
 @Component({
   selector: 'app-root',
@@ -23,20 +22,31 @@ interface people {
 })
 
 export class AppComponent {
+  url='https://my.api.mockaroo.com/people.json?key=b541adc0'
+  Data:people[]=[]
+  genders: String[]=[]
+  gendersSet:String[]=[]
+  constructor(private http: HttpClient){
+    this.http.get(this.url).toPromise().then(jsonData=>{
+      for (let i = 0; i < (jsonData as []).length; i++) {
+        this.Data.push((jsonData as [])[i]);
+      }
+      this.genders = this.Data.map(t => t.gender)
+      this.gendersSet = [...new Set(this.genders)];
+    })
+  }
+  
   Gender = ""
   searchInput = ""
   selectedGender = ""
   noFoundHandler = ""
   noFoundMsg = " User not found "
-  peoples: people[] = Data;
-
-  genders = this.peoples.map(t => t.gender)
-  gendersSet = [...new Set(this.genders)];
+  peoples: people[] = this.Data
 
 
   searchByName() {
     let result = []
-    for (var people of Data) {
+    for (var people of this.Data) {
       if (people.first_name.toUpperCase() + " " + people.last_name.toUpperCase() == this.searchInput.toUpperCase()) {
         result.push(people)
       }
@@ -51,7 +61,7 @@ export class AppComponent {
   }
   searchByEmail() {
     let result = []
-    for (var people of Data) {
+    for (var people of this.Data) {
       if (people.email.toUpperCase() == this.searchInput.toUpperCase()) {
         result.push(people)
       }
@@ -65,7 +75,7 @@ export class AppComponent {
   }
 
   reset() {
-    this.peoples = Data
+    this.peoples = this.Data
     this.selectedGender = ""
     this.searchInput = ""
     this.noFoundHandler = ""
@@ -79,7 +89,7 @@ export class AppComponent {
   }
 
   valueSelected() {
-    this.peoples = (Data as people[]).filter(item => item.gender === this.selectedGender)
+    this.peoples = (this.Data as people[]).filter(item => item.gender === this.selectedGender)
     this.noFoundHandler = ""
 
   }
