@@ -14,21 +14,22 @@
     <b>{{dateTime |async | date:'HH:mm:ss'}} </b>
   </div>
   
+
   <div class="row">
     <div class="buttons">
 
-      <button mat-button class="reset_button" (click)="reset()">reset</button>
-
       <mat-card-actions>
-        <button mat-button (click)="searchByEmail()">Search By Email</button>
-        <button mat-button (click)="searchByName()">Search By Name</button>
-        <input type="text" [(ngModel)]="searchInput" placeholder="Enter full name or email" />
+        <button mat-button (click)="clear()">Clear</button>
+        <input type="text" [(ngModel)]="searchInput" (keyup.enter)="search()"  (keyup)="search()" (keyup.esc)="clear()" placeholder="Enter full name or email" />
+        <!-- <input type="text"   ng-change="search2($value)"> --> 
+        <!-- <input type="text" [(ngModel)]="search2" placeholder="Enter full name or email" /> -->
+
+
         <mat-icon class="search-icon">search</mat-icon>
       </mat-card-actions>
 
       <mat-card-actions>
-        <button mat-button (click)="ascSort()" >ASC sort </button>
-        <button mat-button (click)="dscSort()" >DSC sort </button>
+        <button mat-button (click)="ascSort()" >sort by name</button>
       </mat-card-actions>
 
       <b class="text"> Filter by gender </b>

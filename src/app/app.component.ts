@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { map, Observable, pipe, timer } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
+import { time } from 'console'
+import { WSAELOOP } from 'constants'
 
 
 
-interface people {
+interface People {
   id: Number
   first_name: String
   last_name: String
@@ -23,7 +25,7 @@ interface people {
 
 export class AppComponent {
   url='https://my.api.mockaroo.com/people.json?key=b541adc0'
-  Data:people[]=[]
+  Data:People[]=[]
   genders: String[]=[]
   gendersSet:String[]=[]
   constructor(private http: HttpClient){
@@ -41,38 +43,62 @@ export class AppComponent {
   selectedGender = ""
   noFoundHandler = ""
   noFoundMsg = " User not found "
-  peoples: people[] = this.Data
+  peoples: People[] = this.Data
+  asc=true;
+  interval: NodeJS.Timeout | undefined;
+  Timeout=0
+  
+  clear() {
+    this.peoples = this.Data
+    this.selectedGender = ""
+    this.searchInput = ""
+    this.noFoundHandler = ""
+  }
 
+  search() {
 
-  searchByName() {
+    if(this.Timeout===0){
+      this.Timeout=1;
+      this.interval = setTimeout(() => {
+      this.Timeout=0
     let result = []
     for (var people of this.Data) {
-      if (people.first_name.toUpperCase() + " " + people.last_name.toUpperCase() == this.searchInput.toUpperCase()) {
+
+      if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
         result.push(people)
       }
+      else if ((people.email.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
+        result.push(people)
+      }
+
     }
     if (result.length == 0) { this.noFoundHandler = this.noFoundMsg }
     else {
-      this.searchInput = ""
       this.noFoundHandler = ""
     }
     this.peoples = result
+     }, 1000);
+     
 
-  }
-  searchByEmail() {
-    let result = []
-    for (var people of this.Data) {
-      if (people.email.toUpperCase() == this.searchInput.toUpperCase()) {
-        result.push(people)
-      }
     }
-    if (result.length == 0) { this.noFoundHandler = this.noFoundMsg }
-    else {
-      this.searchInput = ""
-      this.noFoundHandler = ""
-    } this.peoples = result
+    // let result = []
+    // for (var people of this.Data) {
+    //   if (people.first_name.toUpperCase() + " " + people.last_name.toUpperCase() == this.searchInput.toUpperCase()) {
+    //     result.push(people)
+    //   }
+    //   if (people.email.toUpperCase() == this.searchInput.toUpperCase()) {
+    //     result.push(people)
+    //   }
+    // }
+    // if (result.length == 0) { this.noFoundHandler = this.noFoundMsg }
+    // else {
+    //   this.searchInput = ""
+    //   this.noFoundHandler = ""
+    // }
+    // this.peoples = result
 
   }
+
 
   reset() {
     this.peoples = this.Data
@@ -80,16 +106,19 @@ export class AppComponent {
     this.searchInput = ""
     this.noFoundHandler = ""
   }
-
   ascSort() {
-    this.peoples.sort(ascCompare)
-  }
-  dscSort() {
-    this.peoples.sort(dscCompare)
+    if (this.asc){
+      this.peoples.sort(ascCompare)
+      this.asc=false  
+    }
+    else{
+      this.peoples.sort(ascCompare).reverse()
+      this.asc=true  
+    }
   }
 
   valueSelected() {
-    this.peoples = (this.Data as people[]).filter(item => item.gender === this.selectedGender)
+    this.peoples = (this.Data as People[]).filter(item => item.gender === this.selectedGender)
     this.noFoundHandler = ""
 
   }
@@ -103,7 +132,7 @@ export class AppComponent {
 
 // ********************** helper functions **********************
 
-function ascCompare(a: people, b: people) {
+function ascCompare(a: People, b: People) {
 
   if (a.first_name < b.first_name) {
     return -1
@@ -116,25 +145,6 @@ function ascCompare(a: people, b: people) {
       return -1
     }
     else if (a.last_name > b.last_name) {
-      return 1
-    }
-  }
-  return 0
-}
-
-function dscCompare(a: people, b: people) {
-
-  if (a.first_name > b.first_name) {
-    return -1
-  }
-  else if (a.first_name < b.first_name) {
-    return 1
-  }
-  else {
-    if (a.last_name > b.last_name) {
-      return -1
-    }
-    else if (a.last_name < b.last_name) {
       return 1
     }
   }
