@@ -8,7 +8,7 @@
   </head>
 
   <a href="#" class="go-top-button"> <i class="fa-solid fa-arrow-up"></i></a>
-
+  
   <div class="date">
     <b>{{dateTime | async| date: 'd/M/y'}} </b>
     <b>{{dateTime |async | date:'HH:mm:ss'}} </b>
@@ -19,18 +19,17 @@
     <div class="buttons">
 
       <mat-card-actions>
-        <button mat-button (click)="clear()">Clear</button>
-        <input type="text" [(ngModel)]="searchInput" (keyup.enter)="search()"  (keyup)="search()" (keyup.esc)="clear()" placeholder="Enter full name or email" />
-        <!-- <input type="text"   ng-change="search2($value)"> --> 
-        <!-- <input type="text" [(ngModel)]="search2" placeholder="Enter full name or email" /> -->
-
-
-        <mat-icon class="search-icon">search</mat-icon>
+        <button mat-button (click)="search()">Clear</button>
+        <input type="text" [(ngModel)]="searchInput" (keyup.enter)="search()"  (keyup)="Livesearch()" (keyup.esc)="clear()" placeholder="Enter full name or email" />
+         <a href="#" class="clear-icon" > <i class="fa-solid fa-xmark" (click)="clear()"> </i></a> 
       </mat-card-actions>
 
-      <mat-card-actions>
+      <div>
         <button mat-button (click)="ascSort()" >sort by name</button>
-      </mat-card-actions>
+        <mat-icon class="swap-icon"> swap_vert</mat-icon>
+
+
+      </div>
 
       <b class="text"> Filter by gender </b>
 
@@ -42,7 +41,7 @@
         <b>{{noFoundHandler}} </b>
       </div>
     </div>
-
+<!-- 
     <div *ngFor="let card of peoples">
       <mat-card class="user-card">
 
@@ -68,7 +67,37 @@
 
 
       </mat-card>
-    </div>
+    </div> -->
+
+    <div class="content">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let card of peoples">
+          <mat-card class="mat-elevation-z4" >
+          
+        <img mat-card-avatar src={{card.avatar}}>
+        <mat-card-title>{{card.first_name}} {{card.last_name}}</mat-card-title>
+        <mat-card-subtitle>{{card.email}}</mat-card-subtitle>
+
+        <mat-card-subtitle>
+          <ng-container *ngIf="card.gender==='Male';else second">
+            <img src="assets/images/icons8-Male-24.png">
+          </ng-container>
+
+          <ng-template #second>
+            <ng-container *ngIf="card.gender==='Female';else third">
+              <img src="assets/images/icons8-female-24.png">
+            </ng-container>
+          </ng-template>
+
+          <ng-template #third>
+            <img src="assets/images/icons8-lgbt-flag-30.png">
+          </ng-template>
+        </mat-card-subtitle>
+          </mat-card>
+        </div>
+      </div>
+      </div>
+
     <div class="bottom"></div>
 
   </div>

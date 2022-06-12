@@ -40,6 +40,7 @@ button {
 
 .buttons {
     text-align: center;
+    
 }
 
 .text {
@@ -80,4 +81,27 @@ button {
 }
 .reset_button {
     background-color: #59c3cb;
+}
+.swap-icon{
+    color: rgb(3, 1, 1);
+
+}
+.clear-icon{
+    color: rgb(3, 1, 1);
+
+}
+
+.content {
+    padding: 16px;
+
+}
+
+.content > mat-card {
+    width: 200px;
+    background-color: #59c3cb;
+
+}
+.content > mat-card {
+    width: 200px;
+
 }

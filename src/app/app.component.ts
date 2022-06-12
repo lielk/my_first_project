@@ -5,7 +5,6 @@ import { time } from 'console'
 import { WSAELOOP } from 'constants'
 
 
-
 interface People {
   id: Number
   first_name: String
@@ -24,12 +23,12 @@ interface People {
 })
 
 export class AppComponent {
-  url='https://my.api.mockaroo.com/people.json?key=b541adc0'
-  Data:People[]=[]
-  genders: String[]=[]
-  gendersSet:String[]=[]
-  constructor(private http: HttpClient){
-    this.http.get(this.url).toPromise().then(jsonData=>{
+  url = 'https://my.api.mockaroo.com/people.json?key=b541adc0'
+  Data: People[] = []
+  genders: String[] = []
+  gendersSet: String[] = []
+  constructor(private http: HttpClient) {
+    this.http.get(this.url).toPromise().then(jsonData => {
       for (let i = 0; i < (jsonData as []).length; i++) {
         this.Data.push((jsonData as [])[i]);
       }
@@ -37,37 +36,54 @@ export class AppComponent {
       this.gendersSet = [...new Set(this.genders)];
     })
   }
-  
+
   Gender = ""
   searchInput = ""
   selectedGender = ""
   noFoundHandler = ""
   noFoundMsg = " User not found "
   peoples: People[] = this.Data
-  asc=true;
+  asc = true;
   interval: NodeJS.Timeout | undefined;
-  Timeout=0
-  
+  Timeout = 0
+
   clear() {
     this.peoples = this.Data
     this.selectedGender = ""
     this.searchInput = ""
     this.noFoundHandler = ""
   }
+  try() {
+    console.log("DASasdasd")
+  }
+  Livesearch() {
 
-  search() {
-
-    if(this.Timeout===0){
-      this.Timeout=1;
+    if (this.Timeout === 0) {
+      this.Timeout = 1;
       this.interval = setTimeout(() => {
-      this.Timeout=0
+        this.Timeout = 0
+        let result = []
+        for (var people of this.Data) {
+          if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
+            result.push(people)
+          }
+          else if ((people.email.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
+            result.push(people)
+          }
+        }
+        this.peoples = result
+      }, 1000);
+    }
+
+
+  }
+  search() {
     let result = []
     for (var people of this.Data) {
-
-      if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
+      if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()) === (this.searchInput.toUpperCase())) {
         result.push(people)
       }
-      else if ((people.email.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
+      else if ((people.email.toUpperCase()) === (this.searchInput.toUpperCase())) {
         result.push(people)
       }
 
@@ -77,28 +93,7 @@ export class AppComponent {
       this.noFoundHandler = ""
     }
     this.peoples = result
-     }, 1000);
-     
-
-    }
-    // let result = []
-    // for (var people of this.Data) {
-    //   if (people.first_name.toUpperCase() + " " + people.last_name.toUpperCase() == this.searchInput.toUpperCase()) {
-    //     result.push(people)
-    //   }
-    //   if (people.email.toUpperCase() == this.searchInput.toUpperCase()) {
-    //     result.push(people)
-    //   }
-    // }
-    // if (result.length == 0) { this.noFoundHandler = this.noFoundMsg }
-    // else {
-    //   this.searchInput = ""
-    //   this.noFoundHandler = ""
-    // }
-    // this.peoples = result
-
   }
-
 
   reset() {
     this.peoples = this.Data
@@ -107,20 +102,19 @@ export class AppComponent {
     this.noFoundHandler = ""
   }
   ascSort() {
-    if (this.asc){
+    if (this.asc) {
       this.peoples.sort(ascCompare)
-      this.asc=false  
+      this.asc = false
     }
-    else{
+    else {
       this.peoples.sort(ascCompare).reverse()
-      this.asc=true  
+      this.asc = true
     }
   }
 
   valueSelected() {
     this.peoples = (this.Data as People[]).filter(item => item.gender === this.selectedGender)
     this.noFoundHandler = ""
-
   }
 
   dateTime: Observable<Date> = timer(0, 1000).pipe(
