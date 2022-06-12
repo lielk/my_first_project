@@ -1,4 +1,5 @@
 <div id="background">
+
   <html lang="en">
 
   <head>
@@ -19,13 +20,13 @@
     <div class="buttons">
 
       <mat-card-actions>
-        <button mat-button (click)="search()">Clear</button>
+        <button  (click)="search()">Search</button>
         <input type="text" [(ngModel)]="searchInput" (keyup.enter)="search()"  (keyup)="Livesearch()" (keyup.esc)="clear()" placeholder="Enter full name or email" />
          <a href="#" class="clear-icon" > <i class="fa-solid fa-xmark" (click)="clear()"> </i></a> 
       </mat-card-actions>
 
       <div>
-        <button mat-button (click)="ascSort()" >sort by name</button>
+        <button  (click)="ascSort()" >sort by name</button>
         <mat-icon class="swap-icon"> swap_vert</mat-icon>
 
 
@@ -41,33 +42,7 @@
         <b>{{noFoundHandler}} </b>
       </div>
     </div>
-<!-- 
-    <div *ngFor="let card of peoples">
-      <mat-card class="user-card">
 
-        <img mat-card-avatar src={{card.avatar}}>
-        <mat-card-title>{{card.first_name}} {{card.last_name}}</mat-card-title>
-        <mat-card-subtitle>{{card.email}}</mat-card-subtitle>
-
-        <mat-card-subtitle>
-          <ng-container *ngIf="card.gender==='Male';else second">
-            <img src="assets/images/icons8-Male-24.png">
-          </ng-container>
-
-          <ng-template #second>
-            <ng-container *ngIf="card.gender==='Female';else third">
-              <img src="assets/images/icons8-female-24.png">
-            </ng-container>
-          </ng-template>
-
-          <ng-template #third>
-            <img src="assets/images/icons8-lgbt-flag-30.png">
-          </ng-template>
-        </mat-card-subtitle>
-
-
-      </mat-card>
-    </div> -->
 
     <div class="content">
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
