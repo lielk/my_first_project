@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {CardComponent} from './card.component'
+// import {SearchComponent} from './'
 
 import {
 	IgxButtonModule,
@@ -23,7 +25,9 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    AnimateComponent
+    AnimateComponent,
+    CardComponent
+    // SearchComponent
   ],
   imports: [
     HttpClientModule,

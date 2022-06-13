@@ -25,7 +25,7 @@ html {
     background-position: center;
 }
 .date{
-    position: fixed;
+    /* position: fixed; */
     font-size: 20px;
     color: #5c5959;
     margin-left: 5%;
@@ -33,7 +33,7 @@ html {
 }
 
 button {
-    background-color: rgb(233, 255, 253);
+    background-color: rgb(105, 184, 177);
     border-radius: 8px;
     margin: 5px;
 }
@@ -53,29 +53,6 @@ button {
     font-size: medium;
 }
 
-.user-card {
-    border-radius: 30px;
-    box-shadow: 1px 1px;
-    text-align: left;
-    background-color: #f0f0f0;
-    padding-top: 20px;
-    height: 30%;
-    left: 60%;
-    margin-top: 10px;
-    margin-left: -20%;
-    margin-right: 100%;
-
-}
-
-.mat-card-title {
-    padding-top: 20px;
-    text-align: center;
-}
-
-.mat-card-subtitle {
-    text-align: center;
-}
-
 .bottom {
     padding: 20%;
 }
@@ -91,17 +68,7 @@ button {
 
 }
 
-.content {
-    padding: 16px;
-
-}
-
-.content > mat-card {
-    width: 200px;
-    background-color: #59c3cb;
-
-}
-.content > mat-card {
-    width: 200px;
+.app-card{
+    padding-left: 300px;
 
 }

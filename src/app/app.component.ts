@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Output ,EventEmitter,ViewChild, AfterViewInit} from '@angular/core'
 import { map, Observable, pipe, timer } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { time } from 'console'
 import { WSAELOOP } from 'constants'
+import jsonData from './people.json'
+import {CardComponent} from './card.component'
+let Data = jsonData
 
-
-interface People {
+export interface People {
   id: Number
   first_name: String
   last_name: String
@@ -13,41 +15,40 @@ interface People {
   gender: String
   avatar: String
 }
-//  let Data=[{"id":1,"first_name":"Giorgio","last_name":"Eastbrook","email":"geastbrook0@printfriendly.com","gender":"Male","avatar":"https://robohash.org/adipiscietest.png?size=50x50\u0026set=set1"}]
 
 @Component({
   selector: 'app-root',
-  template: `<app-animate></app-animate>`,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent  {
+
+  // message: string="hello world "
+
+
   url = 'https://my.api.mockaroo.com/people.json?key=b541adc0'
-  Data: People[] = []
-  genders: String[] = []
-  gendersSet: String[] = []
-  constructor(private http: HttpClient) {
-    this.http.get(this.url).toPromise().then(jsonData => {
-      for (let i = 0; i < (jsonData as []).length; i++) {
-        this.Data.push((jsonData as [])[i]);
-      }
-      this.genders = this.Data.map(t => t.gender)
-      this.gendersSet = [...new Set(this.genders)];
-    })
-  }
+  Data: People[] = Data
+  // genders: String[] = []
+  // gendersSet: String[] = []
+  peoples: People[] = Data;
+
+  genders = this.peoples.map(t => t.gender)
+  gendersSet = [...new Set(this.genders)];
+  a=this.gendersSet.push("All")
 
   Gender = ""
   searchInput = ""
   selectedGender = ""
   noFoundHandler = ""
   noFoundMsg = " User not found "
-  peoples: People[] = this.Data
+  // peoples: People[] = this.Data
   asc = true;
   interval: NodeJS.Timeout | undefined;
   Timeout = 0
 
   clear() {
+    // this.sendData()
     this.peoples = this.Data
     this.selectedGender = ""
     this.searchInput = ""
@@ -95,7 +96,7 @@ export class AppComponent {
     this.peoples = result
   }
 
-  reset() {
+  cleare() {
     this.peoples = this.Data
     this.selectedGender = ""
     this.searchInput = ""
@@ -113,8 +114,13 @@ export class AppComponent {
   }
 
   valueSelected() {
+    if(this.selectedGender==="All"){
+      this.cleare()
+    }
+    else{
     this.peoples = (this.Data as People[]).filter(item => item.gender === this.selectedGender)
     this.noFoundHandler = ""
+  }
   }
 
   dateTime: Observable<Date> = timer(0, 1000).pipe(
