@@ -9,30 +9,25 @@
   </head>
 
   <a href="#" class="go-top-button"> <i class="fa-solid fa-arrow-up"></i></a>
-  
+
   <div class="date">
     <b>{{dateTime | async | date: 'd/M/y'}} </b>
     <b>{{dateTime | async | date:'HH:mm:ss'}} </b>
   </div>
 
   <div class="row">
-    <div class="buttons">
-  
-      <app-search [peoples]="peoples" (messageEvent)="receiveMessage($event)" ></app-search>
 
-      <div>
-        <button  (click)="ascSort()" >sort by name</button>
-        <mat-icon class="swap-icon"> swap_vert</mat-icon>
-      </div>
+    <div class="buttons">
+
+      <app-search [peoples]="peoples" (messageEvent)="receiveMessage($event)"></app-search>
+      <app-sort [peoples]="peoples"></app-sort>
 
       <b class="text"> Filter by gender </b>
-
       <select [(ngModel)]="selectedGender" (change)="valueSelected()">
         <option *ngFor="let item of gendersSet">{{item}}</option>
       </select>
 
     </div>
-
 
     <app-card [peoples]="peoples"></app-card>
 

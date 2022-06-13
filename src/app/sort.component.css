@@ -1,8 +1,14 @@
 button {
-    background-color: rgb(105, 184, 177);
+    background-color: rgb(188, 231, 228);
     border-radius: 8px;
     margin: 5px;
+    margin-top: -5px;
+
 }
 .swap-icon{
     color: rgb(3, 1, 1);
+}
+.sort{
+margin-bottom: 5px;
+
 }

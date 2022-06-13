@@ -11,7 +11,7 @@ export class SearchComponent implements OnInit {
   data: People[] | any;
   @Input() peoples: People[] | any;
   @Output() messageEvent = new EventEmitter<People[]>();
-  constructor() { }
+  constructor() {}
   ngOnInit(): void {
     this.data = this.peoples
   }
@@ -24,16 +24,15 @@ export class SearchComponent implements OnInit {
   interval: NodeJS.Timeout | undefined;
   Timeout = 0
   searchInput = ""
-  selectedGender = ""
 
   Livesearch() {
-
+    this.noFoundHandler = ""
     if (this.Timeout === 0) {
       this.Timeout = 1;
       this.interval = setTimeout(() => {
         this.Timeout = 0
         let result = []
-        for (var people of this.peoples) {
+        for (var people of this.data) {
           if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
             result.push(people)
           }
@@ -49,7 +48,7 @@ export class SearchComponent implements OnInit {
   }
   search() {
     let result = []
-    for (var people of this.peoples) {
+    for (var people of this.data) {
       if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()) === (this.searchInput.toUpperCase())) {
         result.push(people)
       }
@@ -62,11 +61,11 @@ export class SearchComponent implements OnInit {
       this.noFoundHandler = ""
     }
     this.sendMessage(result)
+
   }
 
   clear() {
     this.sendMessage(this.data)
-    this.selectedGender = ""
     this.searchInput = ""
     this.noFoundHandler = ""
   }

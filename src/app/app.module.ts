@@ -7,13 +7,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
 import {MatIconModule} from '@angular/material/icon';
-import { AnimateComponent } from './animate.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {CardComponent} from './card.component'
 import {SearchComponent} from './search.component'
+import {SortComponent} from './sort.component'
 
 import {
 	IgxButtonModule,
@@ -25,9 +25,9 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    AnimateComponent,
     CardComponent,
-    SearchComponent
+    SearchComponent,
+    SortComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { People } from './app.component';
-
 
 @Component({
   selector: 'app-sort',

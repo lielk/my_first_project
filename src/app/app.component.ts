@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core'
-import { map, Observable, pipe, timer } from 'rxjs'
+import { Component} from '@angular/core'
+import { map, Observable, timer } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import jsonData from './people.json'
 let Data = jsonData
@@ -43,22 +43,12 @@ export class AppComponent {
   Gender = ""
   selectedGender = ""
   // peoples: People[] = this.Data
-  asc = true;
 
   cleare() {
     this.peoples = this.Data
     this.selectedGender = ""
   }
-  ascSort() {
-    if (this.asc) {
-      this.peoples.sort(ascCompare)
-      this.asc = false
-    }
-    else {
-      this.peoples.sort(ascCompare).reverse()
-      this.asc = true
-    }
-  }
+
 
   valueSelected() {
     if (this.selectedGender === "All") {
@@ -74,25 +64,4 @@ export class AppComponent {
       return new Date()
     })
   )
-}
-
-// ********************** helper functions **********************
-
-function ascCompare(a: People, b: People) {
-
-  if (a.first_name < b.first_name) {
-    return -1
-  }
-  else if (a.first_name > b.first_name) {
-    return 1
-  }
-  else {
-    if (a.last_name < b.last_name) {
-      return -1
-    }
-    else if (a.last_name > b.last_name) {
-      return 1
-    }
-  }
-  return 0
 }

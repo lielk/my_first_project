@@ -2,21 +2,19 @@ html {
     scroll-behavior: smooth;
 }
 
-
-.go-top-button{
+.go-top-button {
     position: fixed;
     width: 40px;
     height: 40px;
     background: #5c5959;
     bottom: 40px;
     right: 50px;
-
-    /* text-decoration: none; */
     text-align: center;
     line-height: 40px;
     color: white;
     font-size: 22px;
 }
+
 #background {
     background-attachment: fixed;
     color: #fff;
@@ -24,51 +22,24 @@ html {
     background-size: 100%;
     background-position: center;
 }
-.date{
-    /* position: fixed; */
+
+.date {
     font-size: 20px;
     color: #5c5959;
     margin-left: 5%;
     padding-top: 20px;
 }
 
-button {
-    background-color: rgb(105, 184, 177);
-    border-radius: 8px;
-    margin: 5px;
-}
 
 .buttons {
     text-align: center;
-    
 }
 
 .text {
     color: rgb(20, 21, 21);
 }
 
-.error-text {
-    padding-top: 30px;
-    color: rgb(167, 54, 54);
-    font-size: medium;
-}
 
 .bottom {
     padding: 20%;
-}
-.reset_button {
-    background-color: #59c3cb;
-}
-.swap-icon{
-    color: rgb(3, 1, 1);
-
-}
-.clear-icon{
-    color: rgb(3, 1, 1);
-
-}
-
-.app-card{
-    padding-left: 300px;
-
 }
