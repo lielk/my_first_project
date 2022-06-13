@@ -10,7 +10,6 @@
 
   <a href="#" class="go-top-button"> <i class="fa-solid fa-arrow-up"></i></a>
   
-
   <div class="date">
     <b>{{dateTime | async | date: 'd/M/y'}} </b>
     <b>{{dateTime | async | date:'HH:mm:ss'}} </b>
@@ -18,7 +17,6 @@
 
   <div class="row">
     <div class="buttons">
-  
   
       <app-search [peoples]="peoples" (messageEvent)="receiveMessage($event)" ></app-search>
 
@@ -33,9 +31,6 @@
         <option *ngFor="let item of gendersSet">{{item}}</option>
       </select>
 
-      <div class="error-text">
-        <b>{{noFoundHandler}} </b>
-      </div>
     </div>
 
 

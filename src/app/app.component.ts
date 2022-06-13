@@ -1,10 +1,7 @@
-import { Component, OnInit, Output ,EventEmitter,ViewChild, AfterViewInit} from '@angular/core'
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core'
 import { map, Observable, pipe, timer } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { time } from 'console'
-import { WSAELOOP } from 'constants'
 import jsonData from './people.json'
-import {CardComponent} from './card.component'
 let Data = jsonData
 
 export interface People {
@@ -22,48 +19,35 @@ export interface People {
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent  {
-
-  // message: string="hello world "
-
-constructor(){}
-
+export class AppComponent {
+  constructor() { }
   url = 'https://my.api.mockaroo.com/people.json?key=b541adc0'
   Data: People[] = Data
   // genders: String[] = []
   // gendersSet: String[] = []
   peoples: People[] = Data;
 
-  receiveMessage($events:People[]){
-    if($events===null){
-      this.peoples=Data
-
+  receiveMessage($events: People[]) {
+    if ($events === null) {
+      this.peoples = Data
     }
-    else{
-    this.peoples=$events
-  }
+    else {
+      this.peoples = $events
+    }
   }
 
   genders = this.peoples.map(t => t.gender)
   gendersSet = [...new Set(this.genders)];
-  a=this.gendersSet.push("All")
+  a = this.gendersSet.push("All")
 
   Gender = ""
-  searchInput = ""
   selectedGender = ""
-  noFoundHandler = ""
-  noFoundMsg = " User not found "
   // peoples: People[] = this.Data
   asc = true;
-  interval: NodeJS.Timeout | undefined;
-  Timeout = 0
-
 
   cleare() {
     this.peoples = this.Data
     this.selectedGender = ""
-    this.searchInput = ""
-    this.noFoundHandler = ""
   }
   ascSort() {
     if (this.asc) {
@@ -77,13 +61,12 @@ constructor(){}
   }
 
   valueSelected() {
-    if(this.selectedGender==="All"){
+    if (this.selectedGender === "All") {
       this.cleare()
     }
-    else{
-    this.peoples = (this.Data as People[]).filter(item => item.gender === this.selectedGender)
-    this.noFoundHandler = ""
-  }
+    else {
+      this.peoples = (this.Data as People[]).filter(item => item.gender === this.selectedGender)
+    }
   }
 
   dateTime: Observable<Date> = timer(0, 1000).pipe(
