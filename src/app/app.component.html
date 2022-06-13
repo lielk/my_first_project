@@ -12,18 +12,15 @@
   
 
   <div class="date">
-    <b>{{dateTime | async| date: 'd/M/y'}} </b>
-    <b>{{dateTime |async | date:'HH:mm:ss'}} </b>
+    <b>{{dateTime | async | date: 'd/M/y'}} </b>
+    <b>{{dateTime | async | date:'HH:mm:ss'}} </b>
   </div>
 
   <div class="row">
     <div class="buttons">
   
-      <mat-card-actions>
-        <button  (click)="search()">Search</button>
-        <input type="text" [(ngModel)]="searchInput" (keyup.enter)="search()"  (keyup)="Livesearch()" (keyup.esc)="clear()" placeholder="Enter full name or email" />
-         <a href="#" class="clear-icon" > <i class="fa-solid fa-xmark" (click)="clear()"> </i></a> 
-      </mat-card-actions>
+  
+      <app-search [peoples]="peoples" (messageEvent)="receiveMessage($event)" ></app-search>
 
       <div>
         <button  (click)="ascSort()" >sort by name</button>

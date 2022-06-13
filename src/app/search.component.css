@@ -1,0 +1,13 @@
+
+button {
+    background-color: rgb(105, 184, 177);
+    border-radius: 8px;
+    margin: 5px;
+}
+
+
+.error-text {
+    padding-top: 30px;
+    color: rgb(167, 54, 54);
+    font-size: medium;
+}

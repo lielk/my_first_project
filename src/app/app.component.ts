@@ -26,12 +26,23 @@ export class AppComponent  {
 
   // message: string="hello world "
 
+constructor(){}
 
   url = 'https://my.api.mockaroo.com/people.json?key=b541adc0'
   Data: People[] = Data
   // genders: String[] = []
   // gendersSet: String[] = []
   peoples: People[] = Data;
+
+  receiveMessage($events:People[]){
+    if($events===null){
+      this.peoples=Data
+
+    }
+    else{
+    this.peoples=$events
+  }
+  }
 
   genders = this.peoples.map(t => t.gender)
   gendersSet = [...new Set(this.genders)];
@@ -47,54 +58,6 @@ export class AppComponent  {
   interval: NodeJS.Timeout | undefined;
   Timeout = 0
 
-  clear() {
-    // this.sendData()
-    this.peoples = this.Data
-    this.selectedGender = ""
-    this.searchInput = ""
-    this.noFoundHandler = ""
-  }
-  try() {
-    console.log("DASasdasd")
-  }
-  Livesearch() {
-
-    if (this.Timeout === 0) {
-      this.Timeout = 1;
-      this.interval = setTimeout(() => {
-        this.Timeout = 0
-        let result = []
-        for (var people of this.Data) {
-          if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
-            result.push(people)
-          }
-          else if ((people.email.toUpperCase()).startsWith(this.searchInput.toUpperCase())) {
-            result.push(people)
-          }
-        }
-        this.peoples = result
-      }, 1000);
-    }
-
-
-  }
-  search() {
-    let result = []
-    for (var people of this.Data) {
-      if ((people.first_name.toUpperCase() + " " + people.last_name.toUpperCase()) === (this.searchInput.toUpperCase())) {
-        result.push(people)
-      }
-      else if ((people.email.toUpperCase()) === (this.searchInput.toUpperCase())) {
-        result.push(people)
-      }
-
-    }
-    if (result.length == 0) { this.noFoundHandler = this.noFoundMsg }
-    else {
-      this.noFoundHandler = ""
-    }
-    this.peoples = result
-  }
 
   cleare() {
     this.peoples = this.Data

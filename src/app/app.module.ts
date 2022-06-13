@@ -13,7 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {CardComponent} from './card.component'
-// import {SearchComponent} from './'
+import {SearchComponent} from './search.component'
 
 import {
 	IgxButtonModule,
@@ -26,8 +26,8 @@ import {
   declarations: [
     AppComponent,
     AnimateComponent,
-    CardComponent
-    // SearchComponent
+    CardComponent,
+    SearchComponent
   ],
   imports: [
     HttpClientModule,
